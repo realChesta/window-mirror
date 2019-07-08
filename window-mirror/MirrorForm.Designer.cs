@@ -32,6 +32,7 @@
             this.mirrorMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.fullscreenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rotateBy90ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mirrorBox = new System.Windows.Forms.PictureBox();
             this.mirrorMenuStrip.SuspendLayout();
@@ -42,6 +43,7 @@
             // 
             this.mirrorMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fullscreenToolStripMenuItem,
+            this.rotateBy90ToolStripMenuItem,
             this.toolStripMenuItem1,
             this.closeToolStripMenuItem});
             this.mirrorMenuStrip.Name = "mirrorMenuStrip";
@@ -60,6 +62,14 @@
             this.fullscreenToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.fullscreenToolStripMenuItem.Text = "Fullscreen";
             this.fullscreenToolStripMenuItem.CheckedChanged += new System.EventHandler(this.fullscreenToolStripMenuItem_CheckedChanged);
+            // 
+            // rotateBy90ToolStripMenuItem
+            // 
+            this.rotateBy90ToolStripMenuItem.Image = global::window_mirror.Properties.Resources.arrow_circle_315;
+            this.rotateBy90ToolStripMenuItem.Name = "rotateBy90ToolStripMenuItem";
+            this.rotateBy90ToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.rotateBy90ToolStripMenuItem.Text = "Rotate by 90°";
+            this.rotateBy90ToolStripMenuItem.Click += new System.EventHandler(this.rotateBy90ToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
@@ -109,5 +119,6 @@
         private System.Windows.Forms.ToolStripMenuItem fullscreenToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rotateBy90ToolStripMenuItem;
     }
 }

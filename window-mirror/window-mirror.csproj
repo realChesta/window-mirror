@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="applications_stack.ico" />
+    <None Include="Resources\arrow-circle-315.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

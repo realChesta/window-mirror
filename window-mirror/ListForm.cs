@@ -151,7 +151,7 @@ namespace window_mirror
                 try
                 {
                     int handle = (int)item.Tag;
-                    MirrorForm mirror = new MirrorForm(new DesktopWindow(handle), MirrorForm.DisplayMode.Window, (int)fpsUpDown.Value);
+                    MirrorForm mirror = new MirrorForm(new DesktopWindow(handle), (int)fpsUpDown.Value, MirrorForm.DisplayMode.Window);
                     mirror.Show();
                 }
                 catch { }

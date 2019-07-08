@@ -9,16 +9,18 @@ namespace window_mirror
     public partial class MirrorForm : Form
     {
         public DisplayMode Mode;
+        RotateFlipType Rotation;
         public DesktopWindow MirrorWindow;
         private int Interval;
 
-        public MirrorForm(DesktopWindow window, DisplayMode mode, int refreshRate)
+        public MirrorForm(DesktopWindow window, int refreshRate, DisplayMode mode = DisplayMode.Window)
         {
             InitializeComponent();
             this.MirrorWindow = window;
             this.Mode = mode;
             this.Interval = 1000 / refreshRate;
             this.Text = "Mirror (" + refreshRate + " fps)";
+            this.Rotation = RotateFlipType.RotateNoneFlipNone;
         }
 
         public Image MirrorImage
@@ -45,6 +47,10 @@ namespace window_mirror
                 case DisplayMode.Window:
                     targetSize = mirrorBox.Image.Size;
                     topMost = false;
+
+                    if (this.Rotation == RotateFlipType.Rotate90FlipNone || this.Rotation == RotateFlipType.Rotate270FlipNone)
+                        targetSize = new Size(targetSize.Height, targetSize.Width);
+
                     break;
 
                 case DisplayMode.Fullscreen:
@@ -54,6 +60,9 @@ namespace window_mirror
                     topMost = true;
                     break;
             }
+
+            if (this.Rotation != RotateFlipType.RotateNoneFlipNone)
+                mirrorBox.Image.RotateFlip(this.Rotation);
 
             if (this.Location != targetLocation)
                 this.Location = targetLocation;
@@ -74,8 +83,8 @@ namespace window_mirror
             {
                 while (this.MirrorWindow.Exists && this.InvokeEx(f => f.Visible))
                 {
-                    Bitmap test = this.MirrorWindow.Capture();
-                    this.InvokeEx(f => f.MirrorImage = test);
+                    Bitmap bmp = this.MirrorWindow.Capture();
+                    this.InvokeEx(f => f.MirrorImage = bmp);
                     Thread.Sleep(this.Interval);
                 }
                 this.InvokeEx(f => f.Close());
@@ -109,6 +118,32 @@ namespace window_mirror
                 this.Mode = DisplayMode.Fullscreen;
             else
                 this.Mode = DisplayMode.Window;
+        }
+
+        private void rotateBy90ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Rotation = NextRotation();
+        }
+
+        private RotateFlipType NextRotation()
+        {
+            switch (this.Rotation)
+            {
+                case RotateFlipType.RotateNoneFlipNone:
+                    return RotateFlipType.Rotate90FlipNone;
+
+                case RotateFlipType.Rotate90FlipNone:
+                    return RotateFlipType.Rotate180FlipNone;
+
+                case RotateFlipType.Rotate180FlipNone:
+                    return RotateFlipType.Rotate270FlipNone;
+
+                case RotateFlipType.Rotate270FlipNone:
+                    return RotateFlipType.RotateNoneFlipNone;
+
+                default:
+                    return RotateFlipType.RotateNoneFlipNone;
+            }
         }
     }
 }
